@@ -34,7 +34,17 @@ async def start(bot, update):
                    return
             except UserNotParticipant:
                 #await update.reply_text(f"Join @{update_channel} To Use Me")
-                file_link = f"https://t.me/{bot.get_me().username}?start={file_uid}"
+                if not FIND.get("bot_details"):
+                    try:
+                        bot_= await bot.get_me()
+                        FIND["bot_details"] = bot_
+                    except FloodWait as e:
+                        asyncio.sleep(e.x)
+                        bot_= await bot.get_me()
+                        FIND["bot_details"] = bot_
+                
+                bot_ = FIND.get("bot_details")
+                file_link = f"https://t.me/{bot_.username}?start={file_uid}"
                 await update.reply_text(
                     text="❣ READ THIS INSTRUCTION ❣ \n\n🗣️ചോദിക്കുന്ന സിനിമകൾ നിങ്ങൾക്ക് ലഭിക്കണം എന്നുണ്ടെങ്കിൽ നിങ്ങൾ താഴെ കൊടുത്തിട്ടുള്ള ചാനലിൽ ജോയിൻ ചെയ്യണം. ജോയിൻ ചെയ്ത ശേഷം വീണ്ടും ഗ്രൂപ്പിൽ പോയി ആ ബട്ടനിൽ അമർത്തിയാൽ നിങ്ങൾക്ക് ഞാൻ ആ സിനിമ പ്രൈവറ്റ് ആയി അയച്ചു തരുന്നതാണ്..😍 \n\n🗣 In Order To Get The Movie Requested By You in Our Groups, You Will Have To Join Our Official Channel First. After That, Try Accessing That Movie Again From Our Group. I'll Send You That Movie Privately...😍 \n\nJoin Our Main Channel 🙏</b>",
                     reply_markup=InlineKeyboardMarkup(
