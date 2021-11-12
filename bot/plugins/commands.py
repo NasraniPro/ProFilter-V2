@@ -8,12 +8,14 @@ from pyrogram.errors import UserNotParticipant
 from bot import Translation # pylint: disable=import-error
 from bot.database import Database # pylint: disable=import-error
 
+FIND = {}
 db = Database()
 
 @Client.on_message(filters.command(["start"]) & filters.private, group=1)
 async def start(bot, update):
     update_channel = "@bigmoviesworld"
     file_uid = False
+    global FIND
     
     try:
         file_uid = update.command[1]
